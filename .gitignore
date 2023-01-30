@@ -31,5 +31,5 @@
 *.out
 *.app
 
-# vscode setting\
-.vscode/
+# vscode 设置
+/.vscode
