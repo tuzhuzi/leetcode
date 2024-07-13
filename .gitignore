@@ -33,3 +33,6 @@
 
 # vscode 设置
 /.vscode
+
+# 产物路径
+/output
