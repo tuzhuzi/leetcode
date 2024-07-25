@@ -22,7 +22,7 @@ vector<vector<int>> threeSum(vector<int>& nums) {
       while (k > j && (nums[i] + nums[j] + nums[k]) > 0) {
         k--;
       }
-      if (k == j) {
+      if (k <= j) {
         break;
       }
       if (nums[i] + nums[j] + nums[k] < 0) {
