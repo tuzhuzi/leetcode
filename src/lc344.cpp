@@ -14,9 +14,21 @@ void revertString(vector<char>& s) {
   }
 }
 
+void revertString_doublePointer(vector<char>& s) {
+  int begin = 0;
+  int end = s.size() - 1;
+  while (begin < end) {
+    char temp = s[begin];
+    s[begin] = s[end];
+    s[end] = temp;
+    begin++;
+    end--;
+  }
+}
+
 int main(int argc, char const* argv[]) {
-  vector<char> s = {'n', 'i', 'j', 'i', 'a', 's', 'l', 'a', 'y', 'e', 'r'};
-  revertString(s);
+  vector<char> s = {'n', 'i', 'j', 'a', 's', 'l', 'a', 'y', 'e', 'r'};
+  revertString_doublePointer(s);
   for (char c : s) {
     printf("%c ", c);
   }
