@@ -33,8 +33,46 @@ string reverseWords(string s) {
   return output;
 }
 
-int main(int argc, char const *argv[]) {
+void revertString(string& s, int& insertPosition, int start, int end) {
+  // 先将words拷贝过去
+  int tempStart = insertPosition;
+  int tempEnd = end - start + insertPosition;
+  for (int i = start; i <= end; i++) {
+    s[insertPosition++] = s[i];
+  }
+  while (tempStart < tempEnd) {
+    char c = s[tempStart];
+    s[tempStart] = s[tempEnd];
+    s[tempEnd] = c;
+    tempStart++;
+    tempEnd--;
+  }
+}
+
+string revertWords_doublePointer(string& s) {
+  int sIndex = -1;
+  int eIndex = 0;
+  int insertPosition = 0;
+  while (eIndex < s.size()) {
+    if (s[eIndex] == ' ' && sIndex >= 0 || eIndex == s.size() - 1) {
+      revertString(s, insertPosition, sIndex, eIndex - 1);
+      sIndex = -1;
+      eIndex++;
+      continue;
+    }
+    if (s[eIndex] != ' ' && sIndex < 0) {
+      sIndex = eIndex;
+    }
+    eIndex++;
+  }
+  for (int i = insertPosition; i < s.size(); i++) {
+    s[i] = ' ';
+  }
+  return s;
+}
+
+int main(int argc, char const* argv[]) {
   string input = "a good   example";
-  printf("%s", reverseWords(input).c_str());
+  printf("%s", revertWords_doublePointer(input).c_str());
   return 0;
 }
