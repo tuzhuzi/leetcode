@@ -49,10 +49,32 @@ vector<string> binaryTreePaths(TreeNode* root) {
   return output;
 }
 
+void dumpTreeTheRecursionWay(vector<string>& outPut, string path,
+                             TreeNode* node) {
+  if (node == NULL) {
+    return;
+  }
+  path.append(to_string(node->val));
+  if (node->left == NULL && node->right == NULL) {
+    outPut.push_back(path);
+    return;
+  }
+  path.append("->");
+  dumpTreeTheRecursionWay(outPut, path, node->left);
+  dumpTreeTheRecursionWay(outPut, path, node->right);
+}
+
+vector<string> dumpTreeTheRecursionWay(TreeNode* node) {
+  vector<string> output;
+  string path;
+  dumpTreeTheRecursionWay(output, path, node);
+  return output;
+}
+
 int main(int argc, char const* argv[]) {
   int input[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
   TreeNode* head = buildTreeNode(input, 9);
-  vector<string> dump = binaryTreePaths(head);
+  vector<string> dump = dumpTreeTheRecursionWay(head);
   for (string s : dump) {
     cout << s << endl;
   }
