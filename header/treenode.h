@@ -36,6 +36,37 @@ TreeNode* buildTreeNode(int* arr, int length) {
   return head;
 }
 
+void addBinaryTreeNode(TreeNode* head, int val) {
+  if (val >= head->val) {
+    if (head->right == NULL) {
+      head->right = new TreeNode();
+      head->right->val = val;
+      return;
+    }
+    addBinaryTreeNode(head->right, val);
+  } else {
+    if (head->left == NULL) {
+      head->left = new TreeNode();
+      head->left->val = val;
+      return;
+    }
+    addBinaryTreeNode(head->left, val);
+  }
+}
+
+// 二叉搜索树， 大概率不平衡
+TreeNode* buildBinaryTreeNode(int* arr, int length) {
+  if (length == 0) {
+    return NULL;
+  }
+  TreeNode* head = new TreeNode();
+  head->val = arr[0];
+  for (int i = 1; i < length; i++) {
+    addBinaryTreeNode(head, arr[i]);
+  }
+  return head;
+}
+
 // 前序遍历
 void firstPrintNode(TreeNode* head) {
   if (head == NULL) {
@@ -46,7 +77,17 @@ void firstPrintNode(TreeNode* head) {
   firstPrintNode(head->right);
 }
 
-// 层级便利
+// 中序遍历
+void midPrintNode(TreeNode* head) {
+  if (head == NULL) {
+    return;
+  }
+  midPrintNode(head->left);
+  printf("%d ", head->val);
+  midPrintNode(head->right);
+}
+
+// 层级遍历
 void layerPrintNode(TreeNode* head) {
   deque<TreeNode*> queue;
   queue.push_back(head);
