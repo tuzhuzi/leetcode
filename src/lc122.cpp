@@ -1,19 +1,18 @@
-#include <deque>
+#include <cstdio>
+#include <stack>
+#include <vector>
 
-#include "../header/treenode.h"
+using namespace std;
 
-bool checkSum(TreeNode* node, int targetSum, int sum) {
-  if (node == NULL) {
-    return false;
+int maxProfit(vector<int>& prices) {
+  int lastVal = prices[0];
+  int profit = 0;
+  for (int i = 1; i < prices.size(); i++) {
+    int price = prices[i];
+    if (price > lastVal) {
+      profit += price - lastVal;
+    }
+    lastVal = price;
   }
-  sum += node->val;
-  if (node->left == NULL && node->right == NULL) {
-    return sum == targetSum;
-  }
-  return checkSum(node->left, targetSum, sum) ||
-         checkSum(node->right, targetSum, sum);
-}
-
-bool hasPathSum(TreeNode* root, int targetSum) {
-  return checkSum(root, targetSum, 0);
+  return profit;
 }
