@@ -24,7 +24,7 @@ int findDp(vector<vector<int>>& grid, vector<vector<int>>& dp, int x, int y,
     maxScore = val - grid[x][y];
   }
   dp[x][y] = max(grid[x][y], val);
-  return val;
+  return dp[x][y];
 }
 int maxScore(vector<vector<int>>& grid) {
   vector<vector<int>> dp(grid.size(), vector<int>(grid[0].size(), -1));
@@ -34,8 +34,7 @@ int maxScore(vector<vector<int>>& grid) {
 }
 
 int main(int argc, char const* argv[]) {
-  vector<vector<int>> grid{
-      {9, 5, 7, 3}, {8, 9, 6, 1}, {9, 7, 14, 3}, {2, 5, 3, 1}};
+  vector<vector<int>> grid{{10, 5}, {5, 1}};
   printf("%d", maxScore(grid));
   return 0;
 }
