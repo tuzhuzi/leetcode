@@ -6,6 +6,8 @@ using namespace std;
 
 vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
   sort(people.begin(), people.end(), [](auto a, auto b) {
+    // 优先按高度排，按按要求的人数从小到大排
+    // 先按高度排号， 意味着矮子再排序不会影响高个儿的顺序
     if (a[0] != b[0]) {
       return a[0] > b[0];
     }
@@ -26,6 +28,7 @@ vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
     if (insertIndx == i) {
       continue;
     }
+    // 插入操作
     vector<int> temp = vector<int>(people[i]);
     for (int j = i; j > insertIndx; j--) {
       people[j][0] = people[j - 1][0];
