@@ -43,15 +43,15 @@ int dpWayBetter(int amount, vector<int>& coins) {
   for (int coin : coins) {
     for (int i = coin; i <= amount; i++) {
       // 实际上等于上一步的dp[i][j]+=dp[i-1][temp]
+      // 非倒序是因为硬币可以重复添加
+      // 啊， 这就是完全背包
       dp[i] += dp[i - coin];
     }
   }
   return dp[amount];
 }
 
-int change(int amount, vector<int>& coins) {
-  return dpWayBetter(amount, coins);
-}
+int change(int amount, vector<int>& coins) { return dpWay(amount, coins); }
 
 int main(int argc, char const* argv[]) {
   vector<int> input{1, 2, 5};
