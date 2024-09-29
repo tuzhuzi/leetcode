@@ -5,6 +5,7 @@ using namespace std;
 
 /**
  * 打家劫舍
+ * 没看有啥特别的
  */
 int rob(vector<int>& nums) {
   vector<int> dp(nums.size() + 1, 0);
