@@ -7,7 +7,8 @@ void testBinaryTreeNode(int* input, int length) {
 }
 
 int main(int argc, char const* argv[]) {
-  int input[]{3, 1, 5, 6, 2, 4};
-  testBinaryTreeNode(input, 6);
+  int input[]{1, 2, 3, 4, 5, 6,7};
+  TreeNode* tree = buildTreeNode(input, 7);
+  firstPrintTreeNode_nonStack(tree);
   return 0;
 }

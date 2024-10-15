@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <deque>
+#include <vector>
 
 using namespace std;
 
@@ -103,3 +104,74 @@ void layerPrintNode(TreeNode* head) {
     }
   }
 }
+
+// 非递归的中序遍历
+void midPrintTreeNodeNonStack(TreeNode* root) {
+  deque<TreeNode*> stack;
+
+  TreeNode* node = root;
+
+  while (node != NULL || !stack.empty()) {
+    if (node != NULL) {
+      stack.push_back(node);
+      node = node->left;
+    } else {
+      node = stack. back();
+      stack.pop_back();
+      printf("%d", node->val);
+      node = node->right;
+    }
+  }
+}
+
+// 非递归的后续遍历
+void lastPrintTreeNode_nonStack(TreeNode* node) {
+  deque<TreeNode*> q;
+  TreeNode* temp = node;
+  // 记录访问过的右节点
+  TreeNode* right = NULL;
+  while (node != NULL || !q.empty()) {
+    // 先尽量把左子树入队
+    if (node != NULL) {
+      q.push_back(node);
+      node = node->left;
+      continue;
+    }
+    // 已经没有左节点了，开始加入右节点
+    if (q.back()->right != NULL && q.back()->right != right) {
+      node = q.back()->right;
+      // 标记下，避免后续重复访问
+      continue;
+    }
+    // 输出节点
+    printf("%d", q.back()->val);
+    right = q.back();
+    q.pop_back();
+  }
+}
+
+void firstPrintTreeNode_nonStack(TreeNode* head) {
+  TreeNode* node = head;
+  deque<TreeNode*> q;
+  TreeNode* lastAddedNode;
+  
+  while (node != NULL || !q.empty()) {
+    // 先序遍历的话，就在入栈的时候先做打印
+    if (node != NULL) {
+      printf("%d", node->val);
+      q.push_back(node);
+      node = node->left;
+      continue;
+    }
+    // 空节点了，开始插入右侧子节点，同样要避免节点被重复添加
+    TreeNode* back = q.back();
+    if (back->right != NULL && back->right != lastAddedNode) {
+      node = back->right;
+      continue;
+    }
+    // 这个节点已经访问完成，弹出栈顶
+    lastAddedNode = back;
+    q.pop_back();
+  }
+}
+
